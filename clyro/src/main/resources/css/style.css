@@ -1,0 +1,190 @@
+/* ===== Palette + thème clair (par défaut) ===== */
+.root {
+    -navy: #130B43;
+    -purple: #604FCD;
+    -blue: #4F9DDE;
+    -yellow: #BAAD19;
+    -card: #2F4F70;
+    -lav: #A3AAED;
+
+    -bg: #F4F5FD;
+    -bg-alt: #E6E9FA;
+    -text: #130B43;
+    -code-bg: #FFFFFF;
+    -nav-bg: #FFFFFF;
+    -btn2-bg: #FFFFFF;
+    -btn2-text: #604FCD;
+
+    -fx-font-family: "Poppins";
+    -fx-font-size: 14px;
+    -fx-background-color: -bg;
+}
+
+/* ===== Thème sombre ===== */
+.root.dark {
+    -bg: #0E0933;
+    -bg-alt: #1B1359;
+    -text: #FFFFFF;
+    -code-bg: #141B3A;
+    -nav-bg: #0E0933;
+    -btn2-bg: #FFFFFF;
+    -btn2-text: #130B43;
+}
+
+.page { -fx-background-color: -bg; }
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+    -fx-background-color: -nav-bg;
+    -fx-padding: 12 40;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 14, 0, 0, 2);
+}
+.nav-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.nav-link:hover { -fx-text-fill: -purple; -fx-underline: true; }
+.icon-btn { -fx-background-color: transparent; -fx-cursor: hand; }
+.icon-btn .ikonli-font-icon { -fx-icon-color: -text; }
+.btn-outline-small {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text;
+    -fx-border-color: -purple;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-size: 11px;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+}
+.btn-outline-small:hover { -fx-background-color: -purple; -fx-text-fill: white; }
+
+/* ===== Hero ===== */
+.hero {
+    -fx-background-color: linear-gradient(to bottom, -bg-alt, -bg);
+    -fx-padding: 50 90;
+}
+.hero-title { -fx-font-size: 46px; -fx-font-weight: bold; -fx-fill: -text; }
+.underlined { -fx-underline: true; }
+.hero-sub {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-text-fill: -text;
+    -fx-line-spacing: 6;
+}
+.glow {
+    -fx-fill: radial-gradient(center 50% 50%, radius 50%, rgba(96,79,205,0.40), transparent);
+}
+.btn-primary {
+    -fx-background-color: -purple;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-padding: 11 22;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+.btn-primary:hover { -fx-background-color: #7566E0; }
+.btn-secondary {
+    -fx-background-color: -btn2-bg;
+    -fx-text-fill: -btn2-text;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-padding: 11 22;
+    -fx-background-radius: 6;
+    -fx-border-color: -purple;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+}
+
+/* ===== Sections ===== */
+.section { -fx-padding: 60 90; }
+.section-alt { -fx-background-color: -bg-alt; }
+.section-title { -fx-font-size: 26px; -fx-font-weight: bold; -fx-fill: -text; }
+.mentor-title { -fx-font-size: 22px; -fx-font-weight: bold; -fx-fill: -text; }
+.mentor-text {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 12px;
+    -fx-text-fill: -text;
+    -fx-line-spacing: 4;
+}
+
+/* ===== Carte de code ===== */
+.code-card {
+    -fx-background-color: -code-bg;
+    -fx-background-radius: 20;
+    -fx-padding: 30 60 30 40;
+    -fx-effect: dropshadow(gaussian, rgba(19,11,67,0.30), 30, 0, 0, 10);
+}
+.code-title { -fx-font-family: "JetBrains Mono"; -fx-font-weight: bold; -fx-font-size: 16px; -fx-fill: -text; }
+.code-text { -fx-font-family: "JetBrains Mono"; -fx-font-weight: bold; -fx-font-size: 15px; }
+.kw { -fx-fill: -yellow; }
+.fn { -fx-fill: -blue; }
+.plain { -fx-fill: -text; }
+.badge-blue {
+    -fx-background-color: -blue;
+    -fx-background-radius: 50;
+    -fx-min-width: 64; -fx-min-height: 64; -fx-max-width: 64; -fx-max-height: 64;
+}
+.badge-dark {
+    -fx-background-color: -navy;
+    -fx-background-radius: 50;
+    -fx-border-color: -purple;
+    -fx-border-radius: 50;
+    -fx-min-width: 64; -fx-min-height: 64; -fx-max-width: 64; -fx-max-height: 64;
+}
+.badge-blue .ikonli-font-icon, .feature-icon .ikonli-font-icon { -fx-icon-color: white; }
+.brace-text { -fx-font-family: "JetBrains Mono"; -fx-font-weight: bold; -fx-font-size: 24px; -fx-fill: white; }
+
+/* ===== Statistiques ===== */
+.stat-card {
+    -fx-background-color: -card;
+    -fx-background-radius: 8;
+    -fx-border-color: transparent transparent -lav transparent;
+    -fx-border-width: 0 0 3 0;
+    -fx-padding: 18 20;
+    -fx-alignment: center;
+    -fx-pref-width: 190;
+}
+.stat-card:hover { -fx-effect: dropshadow(gaussian, rgba(96,79,205,0.6), 24, 0, 0, 0); }
+.stat-number { -fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold; }
+.stat-label { -fx-text-fill: -lav; -fx-font-family: "JetBrains Mono"; -fx-font-size: 11px; }
+
+/* ===== Cartes de fonctionnalités ===== */
+.feature-card {
+    -fx-background-color: -card;
+    -fx-background-radius: 26;
+    -fx-alignment: center;
+    -fx-pref-width: 240;
+    -fx-pref-height: 150;
+    -fx-cursor: hand;
+}
+.feature-card-main { -fx-background-color: -purple; }
+.feature-card:hover { -fx-effect: dropshadow(gaussian, rgba(96,79,205,0.7), 30, 0, 0, 6); }
+.feature-icon {
+    -fx-background-color: -blue;
+    -fx-background-radius: 50;
+    -fx-min-width: 46; -fx-min-height: 46; -fx-max-width: 46; -fx-max-height: 46;
+}
+.feature-text {
+    -fx-text-fill: white;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+}
+
+/* ===== Footer ===== */
+.footer {
+    -fx-background-color: linear-gradient(to bottom right, -navy, -purple);
+    -fx-padding: 45;
+    -fx-alignment: center;
+}
+.footer-text { -fx-text-fill: white; -fx-font-family: "JetBrains Mono"; -fx-font-size: 10px; }
