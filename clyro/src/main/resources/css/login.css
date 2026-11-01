@@ -1,0 +1,122 @@
+/* Variables propres à la page de connexion (clair par défaut) */
+.root {
+    -login-g1: #EAF1FD;
+    -login-g2: #F1EDFA;
+    -login-card: #FFFFFF;
+    -login-input: #FFFFFF;
+    -login-input-text: #130B43;
+    -login-muted: #8A8AA8;
+    -login-tab-bg: #FFFFFF;
+    -login-tab-text: #604FCD;
+    -login-border: #4F9DDE;
+    -login-shadow: rgba(96,79,205,0.35);
+}
+.root.dark {
+    -login-g1: #130B43;
+    -login-g2: #261E45;
+    -login-card: #141B3A;
+    -login-input: #0E1430;
+    -login-input-text: #FFFFFF;
+    -login-muted: #9A9CC8;
+    -login-tab-bg: #141B3A;
+    -login-tab-text: #FFFFFF;
+    -login-border: #4F9DDE;
+    -login-shadow: rgba(96,79,205,0.45);
+}
+
+.root.login-page {
+    -fx-background-color: linear-gradient(to bottom, -login-g1, -login-g2);
+}
+
+/* ===== Barre du haut + onglets ===== */
+.login-top { -fx-padding: 24 36 0 36; }
+.tabs {
+    -fx-background-color: -login-tab-bg;
+    -fx-background-radius: 40;
+    -fx-padding: 6;
+    -fx-effect: dropshadow(gaussian, rgba(96,79,205,0.18), 16, 0, 0, 4);
+}
+.tab-pill { -fx-background-color: -purple; -fx-background-radius: 40; }
+.tab-btn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 40;
+    -fx-text-fill: -login-tab-text;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.tab-btn.active { -fx-text-fill: white; }
+
+/* ===== Carte ===== */
+.login-card {
+    -fx-background-color: -login-card;
+    -fx-background-radius: 30;
+    -fx-border-color: rgba(163,170,237,0.35);
+    -fx-border-radius: 30;
+    -fx-padding: 40 60;
+    -fx-effect: dropshadow(gaussian, -login-shadow, 30, 0, 0, 8);
+}
+.form-title { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: -text; }
+.field-label { -fx-font-family: "JetBrains Mono"; -fx-font-size: 11px; -fx-text-fill: -text; }
+
+/* ===== Champs ===== */
+.input-box {
+    -fx-background-color: -login-input;
+    -fx-background-radius: 24;
+    -fx-border-color: -login-border;
+    -fx-border-radius: 24;
+    -fx-border-width: 1.2;
+    -fx-padding: 0 16;
+    -fx-pref-height: 44;
+    -fx-alignment: center-left;
+}
+.input-box:focused-field {
+    -fx-border-color: -purple;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(96,79,205,0.45), 14, 0, 0, 0);
+}
+.input-box:error { -fx-border-color: #E5484D; -fx-border-width: 2; }
+.input-box .ikonli-font-icon { -fx-icon-color: -login-muted; }
+
+.input-field, .input-field:focused {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-fill: -login-input-text;
+    -fx-prompt-text-fill: -login-muted;
+    -fx-highlight-fill: -purple;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 12px;
+    -fx-padding: 0 4;
+}
+.eye-btn { -fx-background-color: transparent; -fx-padding: 0; -fx-cursor: hand; }
+.eye-btn:hover .ikonli-font-icon { -fx-icon-color: -purple; }
+.field-error { -fx-text-fill: #E5484D; -fx-font-family: "JetBrains Mono"; -fx-font-size: 10px; }
+
+/* ===== Lien + bouton ===== */
+.form-hint { -fx-font-family: "JetBrains Mono"; -fx-font-size: 10px; -fx-text-fill: -login-muted; }
+.form-link {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -purple;
+    -fx-cursor: hand;
+}
+.form-link:hover { -fx-underline: true; }
+
+.btn-submit {
+    -fx-background-color: -purple;
+    -fx-background-radius: 24;
+    -fx-text-fill: white;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-pref-height: 44;
+    -fx-graphic-text-gap: 10;
+    -fx-cursor: hand;
+}
+.btn-submit .ikonli-font-icon { -fx-icon-color: white; }
+.btn-submit:hover { -fx-background-color: #7566E0; }
+.btn-submit:disabled { -fx-opacity: 0.85; }

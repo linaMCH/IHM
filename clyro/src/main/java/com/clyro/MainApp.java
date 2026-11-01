@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,7 +37,6 @@ public class MainApp extends Application {
     private Scene scene;
     private ScrollPane scroll;
     private VBox page;
-    private boolean dark = false;
     private FontIcon themeIcon;
     private ImageView logoView;
     private Image logoLight, logoDark;
@@ -50,6 +50,29 @@ public class MainApp extends Application {
     public void start(Stage stage) {
         loadFonts();
 
+        Navigator.register("home", this::buildHomeRoot);
+        Navigator.register("login", LoginPage::create);
+
+        scene = new Scene(Navigator.load("home"), 1100, 760);
+        scene.getStylesheets().addAll(
+                getClass().getResource("/css/style.css").toExternalForm(),
+                getClass().getResource("/css/login.css").toExternalForm());
+        Navigator.init(scene);
+
+        stage.setTitle("Clyro");
+        stage.setMinWidth(900);
+        stage.setMinHeight(600);
+        stage.setScene(scene);
+        stage.show();
+
+        scroll.vvalueProperty().addListener((o, a, b) -> checkReveals());
+        scene.heightProperty().addListener((o, a, b) -> checkReveals());
+        PauseTransition start = new PauseTransition(Duration.millis(150));
+        start.setOnFinished(e -> checkReveals());
+        start.play();
+    }
+
+    private Parent buildHomeRoot() {
         heroSection = buildHero();
         codeSection = buildCodeSection();
         mentorSection = buildMentorSection();
@@ -75,21 +98,7 @@ public class MainApp extends Application {
         BorderPane root = new BorderPane();
         root.setTop(buildNavbar());
         root.setCenter(scroll);
-
-        scene = new Scene(root, 1100, 760);
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
-
-        stage.setTitle("Clyro");
-        stage.setMinWidth(900);
-        stage.setMinHeight(600);
-        stage.setScene(scene);
-        stage.show();
-
-        scroll.vvalueProperty().addListener((o, a, b) -> checkReveals());
-        scene.heightProperty().addListener((o, a, b) -> checkReveals());
-        PauseTransition start = new PauseTransition(Duration.millis(150));
-        start.setOnFinished(e -> checkReveals());
-        start.play();
+        return root;
     }
 
     // ------------------------------------------------------------------ Polices
@@ -119,13 +128,18 @@ public class MainApp extends Application {
         themeBtn.setGraphic(themeIcon);
         themeBtn.getStyleClass().add("icon-btn");
         themeBtn.setOnAction(e -> {
-            toggleTheme();
+            ThemeManager.toggle(scene);
             RotateTransition rt = new RotateTransition(Duration.millis(450), themeBtn);
             rt.setByAngle(360);
             rt.play();
         });
+        ThemeManager.darkProperty().addListener((o, was, isDark) -> {
+            themeIcon.setIconLiteral(isDark ? "fas-sun" : "fas-moon");
+            logoView.setImage(isDark ? logoDark : logoLight);
+        });
 
         Button login = new Button("Se connecter");
+        login.setOnAction(e -> Navigator.go("login"));
         login.getStyleClass().add("btn-outline-small");
         hoverPop(login);
 
@@ -148,14 +162,6 @@ public class MainApp extends Application {
         var stream = getClass().getResourceAsStream(path);
         if (stream == null) throw new IllegalStateException("Image introuvable : " + path);
         return new Image(stream);
-    }
-
-    private void toggleTheme() {
-        dark = !dark;
-        var classes = scene.getRoot().getStyleClass();
-        if (dark) classes.add("dark"); else classes.remove("dark");
-        themeIcon.setIconLiteral(dark ? "fas-sun" : "fas-moon");
-        logoView.setImage(dark ? logoDark : logoLight);
     }
 
     // ------------------------------------------------------------------ Hero
