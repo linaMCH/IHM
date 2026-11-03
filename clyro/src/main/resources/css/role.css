@@ -1,0 +1,39 @@
+/* Clair : fond avec halo lavande au centre */
+.role-page {
+    -fx-background-color: radial-gradient(center 50% 45%, radius 60%, -lav 0%, -bg 100%);
+}
+/* Sombre : halo bleuté sur fond navy */
+.role-page.dark {
+    -fx-background-color: radial-gradient(center 50% 45%, radius 60%, #2A3F7A 0%, -bg 100%);
+}
+.role-text {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text;
+    -fx-opacity: 0.8;
+    -fx-line-spacing: 3;
+}
+.role-btn {
+    -fx-background-color: -purple;
+    -fx-text-fill: white;
+    -fx-font-family: "Poppins";
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-background-radius: 12;
+    -fx-pref-width: 160;
+    -fx-pref-height: 42;
+    -fx-graphic-text-gap: 12;
+    -fx-cursor: hand;
+}
+.role-btn:hover { -fx-background-color: #7566E0; }
+.role-btn .ikonli-font-icon {
+    -fx-icon-color: white;
+    -fx-icon-size: 20;
+}
+.role-footer {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 10px;
+    -fx-text-fill: -text;
+    -fx-opacity: 0.5;
+}
