@@ -30,7 +30,7 @@ public final class LoginPage {
     private final StackPane robotWrap = new StackPane();
     private final Region pill = new Region();
     private final Button tabLogin = new Button("Se connecter");
-    private final Button tabSignup = new Button("S'inscrire");
+    private final Button tabSignup = new Button("S’inscrire");
     private boolean signupMode = false;
 
     /** Point d'entrée : crée la page. */
@@ -67,7 +67,7 @@ public final class LoginPage {
         return top;
     }
 
-    /** Sélecteur « Se connecter | S'inscrire » avec pastille qui glisse. */
+    /** Sélecteur « Se connecter | S’inscrire » avec pastille qui glisse. */
     private Node buildTabs() {
         pill.getStyleClass().add("tab-pill");
         pill.setMinSize(TAB_W, TAB_H);
@@ -184,56 +184,58 @@ public final class LoginPage {
 
     // ------------------------------------------------------------ Formulaire
     private Node buildForm(boolean signup) {
-        Label title = new Label(signup ? "Créer votre compte Clyro" : "Bienvenue chez Clyro");
+        Label title = new Label("Bienvenue chez Clyro");
         title.getStyleClass().add("form-title");
         title.setMaxWidth(Double.MAX_VALUE);
         title.setAlignment(Pos.CENTER);
         VBox.setMargin(title, new Insets(0, 0, 10, 0));
 
-        Field name = signup ? new Field("Entrer votre nom complet", "far-user", "Votre nom", false) : null;
         Field email = new Field("Entrer votre adresse mail", "far-envelope", "test@gmail.com", false);
         Field pass = new Field("Entrer votre mot de passe", "fas-lock", "••••••••••••", true);
+        Field confirm = signup
+                ? new Field("Confirmer votre mot de passe", "fas-lock", "••••••••••••", true)
+                : null;
 
         Label ask = new Label(signup ? "Vous avez déjà un compte ?" : "Vous n'avez pas de compte ?");
         ask.getStyleClass().add("form-hint");
-        Label link = new Label(signup ? "Se connecter" : "S'inscrire");
+        Label link = new Label(signup ? "Se connecter" : "S’inscrire");
         link.getStyleClass().add("form-link");
         link.setOnMouseClicked(e -> setMode(!signup));
         HBox switchLine = new HBox(5, ask, link);
         switchLine.setAlignment(Pos.CENTER);
 
-        Button submit = new Button(signup ? "Créer le compte" : "Se connecter");
+        Button submit = new Button(signup ? "S’inscrire" : "Se connecter");
         submit.setGraphic(new FontIcon("fas-rocket"));
         submit.getStyleClass().add("btn-submit");
         submit.setMaxWidth(Double.MAX_VALUE);
         Fx.hoverPop(submit);
-        submit.setOnAction(e -> submit(submit, name, email, pass, signup));
+        submit.setOnAction(e -> submit(submit, email, pass, confirm, signup));
 
         // Touche Entrée dans un champ = clic sur le bouton
         email.input.setOnAction(e -> submit.fire());
         pass.input.setOnAction(e -> submit.fire());
-        if (name != null) name.input.setOnAction(e -> submit.fire());
+        if (confirm != null) confirm.input.setOnAction(e -> submit.fire());
 
         VBox form = new VBox(18);
         form.setAlignment(Pos.CENTER_LEFT);
-        form.getChildren().add(title);
-        if (name != null) form.getChildren().add(name.node);
-        form.getChildren().addAll(email.node, pass.node, new VBox(10, switchLine, submit));
+        form.getChildren().addAll(title, email.node, pass.node);
+        if (confirm != null) form.getChildren().add(confirm.node);
+        form.getChildren().add(new VBox(10, switchLine, submit));
         return form;
     }
 
-    private void submit(Button btn, Field name, Field email, Field pass, boolean signup) {
+    private void submit(Button btn, Field email, Field pass, Field confirm, boolean signup) {
         boolean ok = true;
-        if (name != null && name.text().isBlank()) {
-            name.fail("Veuillez saisir votre nom.");
-            ok = false;
-        }
         if (!EMAIL.matcher(email.text().trim()).matches()) {
             email.fail("Adresse mail invalide.");
             ok = false;
         }
         if (pass.text().length() < (signup ? 8 : 1)) {
             pass.fail(signup ? "8 caractères minimum." : "Veuillez saisir votre mot de passe.");
+            ok = false;
+        }
+        if (confirm != null && !confirm.text().equals(pass.text())) {
+            confirm.fail("Les mots de passe ne correspondent pas.");
             ok = false;
         }
         if (!ok) return;
@@ -245,13 +247,10 @@ public final class LoginPage {
         btn.setText("Veuillez patienter…");
         PauseTransition load = new PauseTransition(Duration.millis(1200));
         load.setOnFinished(e -> {
-            btn.setText("✓ Réussi (démo)");
-            PauseTransition reset = new PauseTransition(Duration.millis(1500));
-            reset.setOnFinished(x -> {
-                btn.setText(original);
-                btn.setDisable(false);
-            });
-            reset.play();
+            // Connexion ET inscription : on remet le bouton à son état normal puis on va au choix du rôle
+            btn.setText(original);
+            btn.setDisable(false);
+            Navigator.go("role");
         });
         load.play();
     }

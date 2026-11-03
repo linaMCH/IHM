@@ -52,6 +52,7 @@ public class MainApp extends Application {
 
         Navigator.register("home", this::buildHomeRoot);
         Navigator.register("login", LoginPage::create);
+        Navigator.register("role", RolePage::create);
 
         scene = new Scene(Navigator.load("home"), 1100, 760);
         scene.getStylesheets().addAll(
